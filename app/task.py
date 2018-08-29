@@ -34,8 +34,6 @@ class Task(BaseTask):
         self.batch_size = self.args.batch_size
         self.display_step = self.args.display_step
 
-        # Add DATA_SET_PATH config to your .env
-        self.mnist = input_data.read_data_sets(self.context.config.get("DATA_SET_PATH"), one_hot=True)
 
         """
         Concrete execute method.
@@ -67,6 +65,9 @@ class Task(BaseTask):
         batch_size = self.args.batch_size
         display_step = self.args.display_step
 
+        # Add DATA_SET_PATH config to your .env
+        mnist = input_data.read_data_sets(self.context.config.get("DATA_SET_PATH"), one_hot=True)
+
         # tf Graph Input
         x = tf.placeholder(tf.float32, [None, 784])  # mnist data image of shape 28*28=784
         y = tf.placeholder(tf.float32, [None, 10])  # 0-9 digits recognition => 10 classes
@@ -95,10 +96,10 @@ class Task(BaseTask):
             # Training cycle
             for epoch in range(training_epochs):
                 avg_cost = 0.
-                total_batch = int(self.mnist.train.num_examples / batch_size)
+                total_batch = int(mnist.train.num_examples / batch_size)
                 # Loop over all batches
                 for i in range(total_batch):
-                    batch_xs, batch_ys = self.mnist.train.next_batch(batch_size)
+                    batch_xs, batch_ys = mnist.train.next_batch(batch_size)
                     # Run optimization op (backprop) and cost op (to get loss value)
                     _, c = sess.run([optimizer, cost], feed_dict={x: batch_xs,
                                                                   y: batch_ys})
@@ -116,8 +117,8 @@ class Task(BaseTask):
             correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
             # Calculate accuracy
             accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-            #logger.info("Accuracy:", accuracy.eval({x: self.mnist.test.images, y: self.mnist.test.labels}))
-            msg = "Accuracy: " + str(accuracy.eval({x: self.mnist.test.images, y: self.mnist.test.labels}))
+            #logger.info("Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
+            msg = "Accuracy: " + str(accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
             logger.info(msg)
 
     def set_arguments(self, parser) -> None:
