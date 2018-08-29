@@ -27,6 +27,10 @@ class Task(BaseTask):
             You can access to arguments through `self.args` after set your arguments
             through `set_arguments` method.
             (e.g.) self.args.model_path
+        4. File Path:
+            You can get path using `self.context.file`.
+            - Project root path: self.context.file.root_path()
+            - Get path: (e.g.) self.context.file.get_path('data/sample.csv')
         """
 
     def set_arguments(self, parser) -> None:
