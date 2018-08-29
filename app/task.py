@@ -28,9 +28,9 @@ class Task(BaseTask):
             through `set_arguments` method.
             (e.g.) self.args.model_path
         4. File Path:
-            You can get path using `self.context.file`.
-            - Project root path: self.context.file.root_path()
-            - Get path: (e.g.) self.context.file.get_path('data/sample.csv')
+            You can get absolute path under `data` directory by `self.context.file.get_path`.
+            Please put your files (data set or any necessary files) under `data` directory.
+            (e.g.) self.context.file.get_path('sample.csv')
         """
 
     def set_arguments(self, parser) -> None:
