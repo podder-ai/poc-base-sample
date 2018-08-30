@@ -65,8 +65,8 @@ class Task(BaseTask):
         batch_size = self.args.batch_size
         display_step = self.args.display_step
 
-        # Add DATA_SET_PATH config to your .env
-        mnist = input_data.read_data_sets(self.context.config.get("DATA_SET_PATH"), one_hot=True)
+        # Download dataset to /data/tmp
+        mnist = input_data.read_data_sets(self.context.file.get_path("tmp"), one_hot=True)
 
         # tf Graph Input
         x = tf.placeholder(tf.float32, [None, 784])  # mnist data image of shape 28*28=784

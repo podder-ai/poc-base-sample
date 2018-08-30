@@ -1,16 +1,15 @@
-# poc-base
+# poc-base-sample
 
-This is base repository for PoC (Proof of Concept) code.
-Boilerplate project for creating python task using the [Pipeline-framework](https://github.com/podder-ai/pipeline-framework).
+Sample task implementation for Podder.ai pipeline framework.
+How to implement a task using poc-base repository.
 
-## How to implement your code
-
-### Preparation
+## How to run sample code
 
 ```bash
 # clone poc-base
-$ git clone git@github.com:podder-ai/poc-base.git
-$ cd poc-base
+$ git clone git@github.com:podder-ai/poc-base-sample.git
+$ cd poc-base-sample
+>>>>>>> :+1: update Readme file
 # configure environment variables
 $ cp .env.sample .env
 # enable python3
@@ -48,110 +47,6 @@ $ tree . -L 2
 ├── .env # where to add your environment variables 
 ```
 
+## How to implement the new task
 
-### How to implement a task class
-
-Add your code to `app/task.py`. 
-
-#### Implementation sample
-
-Please check task sample here [Sample](https://github.com/podder-ai/poc-base-sample)
-
-#### __init__: Initialize task instance 
-
-```python
- def __init__(self):
- 
-    self.context.logger.debug("Initiate task...")
-
-    super().__init__()
-```
-
-#### execute: Main process
-
-```python
-def execute(self) -> None:
-
-    self.context.logger.debug("START processing...")
-    
-    self.yourProcess(self.args.input_path)
-    
-    self.context.logger.debug("Completed.")
-        
-```
-
-#### set_arguments: Arguments
-
-```python
-def set_arguments(self, parser) -> None:
-    
-    parser.add_argument('--input_path', dest="input_path", help='set input path', default='.')
-
-```
-
-### Framework API
-
-Some framework APIs you can use for your implementation.
-
-#### Logging
-
-You can output logs with `self.context.logger`. `logger` is just a wrapper of logging. For further logging usage, please check [here](https://docs.python.org/3.6/library/logging.html)
-
-```python
-self.context.logger.debug("debug")
-self.context.logger.info("info")
-```
-
-#### Environment variables
-
-Please config  your environment variables in `.env` file.
-You can access to environment variables with `self.context.config.get([YOUR_ENV_KEY])`.
-
-```dotenv
-ENV=local
-```
-```python
-self.context.config.get("ENV") # local
-```
-
-#### Command Line Arguments
-
-You can access to arguments through `self.args` after set your arguments through `set_arguments` method.
-
-Adding command line arguments implementation
-```python
-parser.add_argument('--model', dest="model_path", help='set model path')
-```
-
-Framework uses ArgumentParser in background. You can check usage of ArgumentParser usage [here](https://docs.python.org/3.6/library/argparse.html#argparse.ArgumentParser)
-
-Get command line arguments
-```python
-model_path = self.args.model_path
-```
-
-#### Data files
-
-You can get absolute path under `data` directory by `self.context.file.get_path`. Please put your files (data set or any necessary files) under `data` directory.
-
-```python
-self.context.file.get_path('sample.csv')
-```
-
-### Run
-
-Run your task with argument
-```bash
-$ python main.py --model your_model_path
-```
-
-## Implementation note
-
-Finally, your task implementation will be integrated to Pipeline-framework and deploy using Docker/Kubernetes.
-To make it easier, please follow this implementation rules below.
-
-- Only add your code to `app/task.py`
-- Put your data set or model files to `data`
-- Your task implementation will be compiled by Cython in integrating. Please don't use `__file__` in your code.
-- Please add issue & pull request if you have any request
-
+Please check the implementation guideline here. [PoC base guideline](https://github.com/podder-ai/poc-base)
