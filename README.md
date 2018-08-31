@@ -13,7 +13,7 @@ $ cd poc-base-sample
 # configure environment variables
 $ cp .env.sample .env
 # enable python3
-$ python3 -m venv env
+$ python3 -m env
 $ source env/bin/activate
 # install required libraries
 $ pip install -r requirements.txt
