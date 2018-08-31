@@ -5,6 +5,12 @@ How to implement a task using poc-base repository.
 
 ## How to run sample code
 
+### Create virtual environment
+
+Create Python virtual environment. Please check [Creation of virtual environments](https://docs.python.org/3/library/venv.html)
+
+### For Mac os, Linux user
+
 ```bash
 # clone poc-base
 $ git clone git@github.com:podder-ai/poc-base-sample.git
@@ -19,6 +25,16 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 # run sample code
 $ python main.py
+```
+
+### For Windows user
+
+```bash
+C:\>python -m venv C:\path\to\myenv
+# Windows cmd.exe
+C:\> C:\path\to\myenv\Scripts\activate.bat
+# PowerShell PS
+C:\> C:\path\to\myenv\Scripts\Activate.ps1
 ```
 
 ## Source code directory
