@@ -15,7 +15,6 @@ Create Python virtual environment. Please check [Creation of virtual environment
 # clone poc-base
 $ git clone git@github.com:podder-ai/poc-base-sample.git
 $ cd poc-base-sample
->>>>>>> :+1: update Readme file
 # configure environment variables
 $ cp .env.sample .env
 # enable python3
@@ -27,7 +26,15 @@ $ pip install -r requirements.txt
 $ python main.py
 ```
 
-### For Windows user
+### For Windows user with PowerShell
+
+If using Powershell, the activate script is subject to the execution policies on the system. By default on Windows 7, the system's excution policy is set to `Restricted`, meaning no scripts as virtualenv activation script are allowed to be executed. 
+
+In order to use the script, you can relax your system's execution policy to `Unrestricted`, meaning all scripts on the system can be executed. As an administrator run:
+
+```
+C:\>Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -Verbose
+```
 
 ```bash
 C:\>python -m venv C:\path\to\myenv
