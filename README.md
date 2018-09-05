@@ -37,6 +37,18 @@ C:\> C:\path\to\myenv\Scripts\activate.bat
 C:\> C:\path\to\myenv\Scripts\Activate.ps1
 ```
 
+### Via Docker
+
+For detail Dockerfile check [here](./Dockerfile)
+
+```bash
+# build docker image with python enviroment
+$ docker build -t poc-sample .
+
+# run code
+$ docker run -ti poc-sample python main.py
+```
+
 ## Source code directory
 
 ```
