@@ -64,6 +64,7 @@ class Task(BaseTask):
         training_epochs = self.args.training_epochs
         batch_size = self.args.batch_size
         display_step = self.args.display_step
+        use_saved_model = self.args.use_saved_model
 
         # Download dataset to /data/tmp
         mnist = input_data.read_data_sets(self.context.file.get_path("tmp"), one_hot=True)
@@ -92,26 +93,35 @@ class Task(BaseTask):
 
             # Run the initializer
             sess.run(init)
+            saver = tf.train.Saver()
 
-            # Training cycle
-            for epoch in range(training_epochs):
-                avg_cost = 0.
-                total_batch = int(mnist.train.num_examples / batch_size)
-                # Loop over all batches
-                for i in range(total_batch):
-                    batch_xs, batch_ys = mnist.train.next_batch(batch_size)
-                    # Run optimization op (backprop) and cost op (to get loss value)
-                    _, c = sess.run([optimizer, cost], feed_dict={x: batch_xs,
-                                                                  y: batch_ys})
-                    # Compute average loss
-                    avg_cost += c / total_batch
-                # Display logs per epoch step
-                if (epoch + 1) % display_step == 0:
-                    #logger.info("Epoch: %04d cost=", epoch + 1, "{:.9f}".format(avg_cost))
-                    msg = "Epoch: " + str(epoch + 1) + "cost= " + "{:.9f}".format(avg_cost)
-                    logger.info(msg)
+            if self.to_bool(use_saved_model):
+                logger.info("Use saved model...")
+                # Restore model
+                saver.restore(sess, "saved_models/model")
+            else:
+                logger.info("Start training...")
+                # Training cycle
+                for epoch in range(training_epochs):
+                    avg_cost = 0.
+                    total_batch = int(mnist.train.num_examples / batch_size)
+                    # Loop over all batches
+                    for i in range(total_batch):
+                        batch_xs, batch_ys = mnist.train.next_batch(batch_size)
+                        # Run optimization op (backprop) and cost op (to get loss value)
+                        _, c = sess.run([optimizer, cost], feed_dict={x: batch_xs,
+                                                                      y: batch_ys})
+                        # Compute average loss
+                        avg_cost += c / total_batch
+                    # Display logs per epoch step
+                    if (epoch + 1) % display_step == 0:
+                        #logger.info("Epoch: %04d cost=", epoch + 1, "{:.9f}".format(avg_cost))
+                        msg = "Epoch: " + str(epoch + 1) + "cost= " + "{:.9f}".format(avg_cost)
+                        logger.info(msg)
 
-            logger.info("Optimization Finished!")
+                logger.info("Optimization Finished!")
+                # Save model
+                saver.save(sess, "saved_models/model")
 
             # Test model
             correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
@@ -135,9 +145,19 @@ class Task(BaseTask):
         training_epochs = 25
         batch_size = 100
         display_step = 1
+        use_saved_model = 'True'
 
         parser.add_argument('--learning_rate', dest="learning_rate", default=learning_rate, help='set learning rate')
         parser.add_argument('--training_epochs', dest="training_epochs", default=training_epochs, help='set training epochs')
         parser.add_argument('--batch_size', dest="batch_size", default=batch_size, help='set batch size')
         parser.add_argument('--display_step', dest="display_step", default=display_step, help='set display step')
+        parser.add_argument('--use_saved_model', dest="use_saved_model", default=use_saved_model, help='Use saved model')
 
+
+    def to_bool(self, str: str) -> bool:
+        if str.lower() in ('yes', 'true', 't', 'y', '1'):
+            return True
+        elif str.lower() in ('no', 'false', 'f', 'n', '0'):
+            return False
+        else:
+            raise ValueError
