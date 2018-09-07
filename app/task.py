@@ -24,6 +24,7 @@ class Task(BaseTask):
     """
     Concrete task class.
     """
+    SAVED_MODEL_PATH = 'saved_models/model'
 
     def __init__(self, context: Context) -> None:
         super().__init__(context)
@@ -98,7 +99,7 @@ class Task(BaseTask):
             if self.to_bool(use_saved_model):
                 logger.info("Use saved model...")
                 # Restore model
-                saver.restore(sess, "saved_models/model")
+                saver.restore(sess, self.context.file.get_path(self.SAVED_MODEL_PATH))
             else:
                 logger.info("Start training...")
                 # Training cycle
@@ -121,7 +122,7 @@ class Task(BaseTask):
 
                 logger.info("Optimization Finished!")
                 # Save model
-                saver.save(sess, "saved_models/model")
+                saver.save(sess, self.context.file.get_path(self.SAVED_MODEL_PATH))
 
             # Test model
             correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
