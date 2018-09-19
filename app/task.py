@@ -18,8 +18,6 @@ tf.logging.set_verbosity(tf.logging.ERROR)
 # Import mnist data
 from tensorflow.examples.tutorials.mnist import input_data
 
-from framework import BaseTask
-
 class Task(BaseTask):
     """
     Concrete task class.
@@ -30,12 +28,6 @@ class Task(BaseTask):
         super().__init__(context)
 
     def execute(self) -> Any:
-        self.learning_rate = self.args.learning_rate
-        self.training_epochs = self.args.training_epochs
-        self.batch_size = self.args.batch_size
-        self.display_step = self.args.display_step
-
-
         """
         Concrete execute method.
 
@@ -59,11 +51,11 @@ class Task(BaseTask):
         logger = self.context.logger
 
         # Parameters
-        learning_rate = self.args.learning_rate
-        training_epochs = self.args.training_epochs
-        batch_size = self.args.batch_size
-        display_step = self.args.display_step
-        use_saved_model = self.args.use_saved_model
+        learning_rate = self.context.config.get('learning_rate')
+        training_epochs = self.context.config.get('training_epochs')
+        batch_size = self.context.config.get('batch_size')
+        display_step = self.context.config.get('display_step')
+        use_saved_model = self.context.config.get('use_saved_model')
 
         # Download dataset to /data/tmp
         mnist = input_data.read_data_sets(self.context.file.get_path("tmp"), one_hot=True)
@@ -146,11 +138,11 @@ class Task(BaseTask):
         display_step = 1
         use_saved_model = 'True'
 
-        parser.add_argument('--learning_rate', dest="learning_rate", default=learning_rate, help='set learning rate')
-        parser.add_argument('--training_epochs', dest="training_epochs", default=training_epochs, help='set training epochs')
-        parser.add_argument('--batch_size', dest="batch_size", default=batch_size, help='set batch size')
-        parser.add_argument('--display_step', dest="display_step", default=display_step, help='set display step')
-        parser.add_argument('--use_saved_model', dest="use_saved_model", default=use_saved_model, help='Use saved model')
+        self.context.config.set_argument('--learning_rate', dest="learning_rate", default=learning_rate, help='set learning rate')
+        self.context.config.set_argument('--training_epochs', dest="training_epochs", default=training_epochs, help='set training epochs')
+        self.context.config.set_argument('--batch_size', dest="batch_size", default=batch_size, help='set batch size')
+        self.context.config.set_argument('--display_step', dest="display_step", default=display_step, help='set display step')
+        self.context.config.set_argument('--use_saved_model', dest="use_saved_model", default=use_saved_model, help='Use saved model')
 
 
     def to_bool(self, str: str) -> bool:
