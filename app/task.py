@@ -6,7 +6,7 @@ The base source code:
 '''
 
 from framework.tasks import BaseTask
-from framework import Context
+from framework.context import Context
 from typing import Any
 
 import warnings
