@@ -5,6 +5,11 @@ How to implement a task using poc-base repository.
 
 ## How to run sample code
 
+```bash
+$ docker build -t poc-base-sample .
+$ docker run -it poc-base-sample python main.py
+```
+
 ### Source code directory
 
 ```
@@ -15,8 +20,8 @@ $ tree . -L 2
 │   ├── __init__.py
 │   ├── __pycache__
 │   └── task.py  # main task implementation
-├── data
-│   └── tmp      # where to put your data 
+├── data         # where to put your data
+│   └── saved_models
 ├── framework    # framework code base
 │   ├── __init__.py
 │   ├── __pycache__
@@ -27,6 +32,7 @@ $ tree . -L 2
 │   └── tasks
 ├── main.py
 ├── requirements.txt # add required packages here
+└── tmp         # where to put your temporary files
 ```
 
 ### How to implement a task class
