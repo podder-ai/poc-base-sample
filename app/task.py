@@ -141,7 +141,7 @@ class Task(BaseTask):
         """
         # This "inputs" value will be passed to execute method as an argument "inputs".
         self.context.config.set_argument('--inputs', dest='inputs', help='inputs list',
-                                         required=True, nargs='+')
+                                         required=False, nargs='+')
 
         learning_rate = 0.01
         training_epochs = 25
