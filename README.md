@@ -98,17 +98,29 @@ model_path = self.args.model_path
 
 #### Data files
 
-You can get absolute path under `data` directory by `self.context.file.get_path`. Please put your files (data set or any necessary files) under `data` directory.
+You can get absolute path using`self.context.file`.
+
+- `data` directory: `self.context.file.get_data_path`
+
+Please put your data or saved models under `data` directory.
 
 ```python
-self.context.file.get_path('sample.csv')
+sample_csv_path = self.context.file.get_data_path('sample.csv')
 ```
+
+- `tmp` directory
+
+Please use `tmp` directory for temporary files.
+
+```python
+tmp_csv_path = self.context.file.get_tmp_path('tmp.csv')
+``` 
 
 ### Run
 
 Run your task with argument
 ```bash
-$ python main.py --model your_model_path
+$ python main.py --inputs /path/to/input/a /path/to/input/b
 ```
 
 ## How to run your code
@@ -125,7 +137,7 @@ $ source env/bin/activate
 # install required libraries
 $ pip install -r requirements.txt
 # run sample code
-$ python main.py
+$ python main.py --inputs /path/to/input/a /path/to/input/b
 ```
 
 ### For Windows user with PowerShell
@@ -151,7 +163,7 @@ C:\> C:\path\to\myenv\Scripts\Activate.ps1
 # install required libraries
 C:\> pip install -r requirements.txt
 # run sample code
-C:\> python main.py
+C:\> python main.py --inputs /path/to/input/a /path/to/input/b
 ```
 
 ### Via Docker
@@ -165,7 +177,7 @@ For detail Dockerfile check [here](./Dockerfile)
 $ docker build -t poc-sample .
 
 # run code
-$ docker run -ti poc-sample python main.py
+$ docker run -ti poc-sample python main.py --inputs /path/to/input/a /path/to/input/b
 ```
 
 ## Implementation note
