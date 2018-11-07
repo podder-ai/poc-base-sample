@@ -66,7 +66,7 @@ class Task(BaseTask):
         use_saved_model = self.context.config.get('use_saved_model')
 
         # Download dataset to /data/tmp
-        mnist = input_data.read_data_sets(self.context.file.get_path("tmp"), one_hot=True)
+        mnist = input_data.read_data_sets(self.context.file.get_tmp_path(), one_hot=True)
 
         # tf Graph Input
         x = tf.placeholder(tf.float32, [None, 784])  # mnist data image of shape 28*28=784
@@ -97,7 +97,7 @@ class Task(BaseTask):
             if self.to_bool(use_saved_model):
                 logger.info("Use saved model...")
                 # Restore model
-                saver.restore(sess, self.context.file.get_path(self.SAVED_MODEL_PATH))
+                saver.restore(sess, self.context.file.get_data_path(self.SAVED_MODEL_PATH))
             else:
                 logger.info("Start training...")
                 # Training cycle
@@ -120,7 +120,7 @@ class Task(BaseTask):
 
                 logger.info("Optimization Finished!")
                 # Save model
-                saver.save(sess, self.context.file.get_path(self.SAVED_MODEL_PATH))
+                saver.save(sess, self.context.file.get_data_path(self.SAVED_MODEL_PATH))
 
             # Test model
             correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
