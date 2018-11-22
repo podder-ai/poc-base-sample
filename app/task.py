@@ -49,13 +49,6 @@ class Task(BaseTask):
         self.context.logger.debug("Start executing...")
         self.context.logger.debug("inputs: {}".format(inputs))
 
-        # Add your code here
-
-        outputs = []
-        self.context.logger.debug("outputs: {}".format(outputs))
-        self.context.logger.debug("Complete executing.")
-        return outputs
-
         # Logger
         logger = self.context.logger
 
@@ -130,6 +123,14 @@ class Task(BaseTask):
             #logger.info("Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
             msg = "Accuracy: " + str(accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
             logger.info(msg)
+
+        # Add your code here
+
+        outputs = inputs
+        self.context.logger.debug("outputs: {}".format(outputs))
+        self.context.logger.debug("Complete executing.")
+        return outputs
+
 
     def set_arguments(self) -> None:
         """
