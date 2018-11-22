@@ -54,6 +54,7 @@ class Task(BaseTask):
         outputs = []
         self.context.logger.debug("outputs: {}".format(outputs))
         self.context.logger.debug("Complete executing.")
+        return outputs
 
         # Logger
         logger = self.context.logger
