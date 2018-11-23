@@ -49,13 +49,6 @@ class Task(BaseTask):
         self.context.logger.debug("Start executing...")
         self.context.logger.debug("inputs: {}".format(inputs))
 
-        # Add your code here
-
-        outputs = []
-        self.context.logger.debug("outputs: {}".format(outputs))
-        self.context.logger.debug("Complete executing.")
-        return outputs
-
         # Logger
         logger = self.context.logger
 
@@ -68,6 +61,8 @@ class Task(BaseTask):
 
         # Download dataset to /data/tmp
         mnist = input_data.read_data_sets(self.context.file.get_tmp_path(), one_hot=True)
+
+        tf.reset_default_graph()
 
         # tf Graph Input
         x = tf.placeholder(tf.float32, [None, 784])  # mnist data image of shape 28*28=784
@@ -130,6 +125,13 @@ class Task(BaseTask):
             #logger.info("Accuracy:", accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
             msg = "Accuracy: " + str(accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
             logger.info(msg)
+
+        # Just for test purpose, pass inputs to outputs here.
+        outputs = inputs
+        self.context.logger.debug("outputs: {}".format(outputs))
+        self.context.logger.debug("Complete executing.")
+        return outputs
+
 
     def set_arguments(self) -> None:
         """
