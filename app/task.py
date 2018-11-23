@@ -62,6 +62,8 @@ class Task(BaseTask):
         # Download dataset to /data/tmp
         mnist = input_data.read_data_sets(self.context.file.get_tmp_path(), one_hot=True)
 
+        tf.reset_default_graph()
+
         # tf Graph Input
         x = tf.placeholder(tf.float32, [None, 784])  # mnist data image of shape 28*28=784
         y = tf.placeholder(tf.float32, [None, 10])  # 0-9 digits recognition => 10 classes
@@ -148,8 +150,7 @@ class Task(BaseTask):
         training_epochs = 25
         batch_size = 100
         display_step = 1
-        # TODO: Fix error when use_saved_model is 'True'
-        use_saved_model = 'False'
+        use_saved_model = 'True'
 
         self.context.config.set_argument('--learning_rate', dest="learning_rate", default=learning_rate, help='set learning rate')
         self.context.config.set_argument('--training_epochs', dest="training_epochs", default=training_epochs, help='set training epochs')
