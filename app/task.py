@@ -124,8 +124,7 @@ class Task(BaseTask):
             msg = "Accuracy: " + str(accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
             logger.info(msg)
 
-        # Add your code here
-
+        # Just for test purpose, pass inputs to outputs here.
         outputs = inputs
         self.context.logger.debug("outputs: {}".format(outputs))
         self.context.logger.debug("Complete executing.")
@@ -149,7 +148,8 @@ class Task(BaseTask):
         training_epochs = 25
         batch_size = 100
         display_step = 1
-        use_saved_model = 'True'
+        # TODO: Fix error when use_saved_model is 'True'
+        use_saved_model = 'False'
 
         self.context.config.set_argument('--learning_rate', dest="learning_rate", default=learning_rate, help='set learning rate')
         self.context.config.set_argument('--training_epochs', dest="training_epochs", default=training_epochs, help='set training epochs')
