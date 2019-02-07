@@ -1,13 +1,13 @@
-# poc-base-sample
+# podder-task-sample
 
 Sample task implementation for Podder.ai pipeline framework.
-How to implement a task using poc-base repository.
+How to implement a task using podder-task repository.
 
 ## How to run sample code
 
 ```bash
-$ docker build -t poc-base-sample .
-$ docker run -it poc-base-sample python main.py
+$ docker build -t podder-task-sample .
+$ docker run -it podder-task-sample python main.py
 ```
 
 ### Source code directory
@@ -37,13 +37,13 @@ $ tree . -L 2
 
 ### How to implement a task class
 
-Add your code to `app/task.py`. 
+Add your code to `app/task.py`.
 
 #### Implementation sample
 
-Please check task sample here [Sample](https://github.com/podder-ai/poc-base-sample)
+Please check task sample here [Sample](https://github.com/podder-ai/podder-task-sample)
 
-#### __init__: Initialize task instance 
+#### __init__: Initialize task instance
 
 ```python
 def __init__(self, context: Context) -> None:
@@ -57,18 +57,18 @@ def __init__(self, context: Context) -> None:
 def execute(self) -> None:
 
     self.context.logger.debug("START processing...")
-    
+
     self.yourProcess(self.args.input_path)
-    
+
     self.context.logger.debug("Completed.")
-        
+
 ```
 
 #### set_arguments: Arguments
 
 ```python
 def set_arguments(self, parser) -> None:
-    
+
     parser.add_argument('--input_path', dest="input_path", help='set input path', default='.')
 
 ```
@@ -120,7 +120,7 @@ Please use `tmp` directory for temporary files.
 
 ```python
 tmp_csv_path = self.context.file.get_tmp_path('tmp.csv')
-``` 
+```
 
 ### Run
 
@@ -134,9 +134,9 @@ $ python main.py --inputs /path/to/input/a /path/to/input/b
 ### For Mac os, Linux user
 
 ```bash
-# clone poc-base
-$ git clone git@github.com:podder-ai/poc-base.git
-$ cd poc-base
+# clone podder-task
+$ git clone git@github.com:podder-ai/podder-task.git
+$ cd podder-task
 # enable python3
 $ python3 -m venv env
 $ source env/bin/activate
@@ -148,7 +148,7 @@ $ python main.py --inputs /path/to/input/a /path/to/input/b
 
 ### For Windows user with PowerShell
 
-If using Powershell, the activate script is subject to the execution policies on the system. By default on Windows 7, the system's excution policy is set to `Restricted`, meaning no scripts as virtualenv activation script are allowed to be executed. 
+If using Powershell, the activate script is subject to the execution policies on the system. By default on Windows 7, the system's excution policy is set to `Restricted`, meaning no scripts as virtualenv activation script are allowed to be executed.
 
 In order to use the script, you can relax your system's execution policy to `Unrestricted`, meaning all scripts on the system can be executed. As an administrator run:
 
@@ -157,9 +157,9 @@ C:\>Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force -Verbose
 ```
 
 ```bash
-# clone poc-base
-C:\> git clone git@github.com:podder-ai/poc-base.git
-C:\> cd poc-base
+# clone podder-task
+C:\> git clone git@github.com:podder-ai/podder-task.git
+C:\> cd podder-task
 # enable python3
 C:\>python3 -m venv C:\path\to\myenv
 # Windows cmd.exe
@@ -174,16 +174,16 @@ C:\> python main.py --inputs /path/to/input/a /path/to/input/b
 
 ### Via Docker
 
-To skip python environment setting, we are using Docker to run task. 
+To skip python environment setting, we are using Docker to run task.
 For detail Dockerfile check [here](./Dockerfile)
 
 
 ```bash
 # build docker image with python enviroment
-$ docker build -t poc-sample .
+$ docker build -t podder-task-sample .
 
 # run code
-$ docker run -ti poc-sample python main.py --inputs /path/to/input/a /path/to/input/b
+$ docker run -ti podder-task-sample python main.py --inputs /path/to/input/a /path/to/input/b
 ```
 
 ## Implementation note
