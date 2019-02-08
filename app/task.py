@@ -1,5 +1,5 @@
 '''
-Implement with PoC base
+Implement with Podder Task
 The base source code:
  A logistic regression learning algorithm example using TensorFlow library.
  Code: https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/2_BasicModels/logistic_regression.py

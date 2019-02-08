@@ -1,2 +1,2 @@
-model_checkpoint_path: "/Users/taka/Work/Zoono/Projects/NexusFrontierTech/Podder/poc-base-sample/data/saved_models/model"
-all_model_checkpoint_paths: "/Users/taka/Work/Zoono/Projects/NexusFrontierTech/Podder/poc-base-sample/data/saved_models/model"
+model_checkpoint_path: "/Users/taka/Work/Zoono/Projects/NexusFrontierTech/Podder/podder-task-sample/data/saved_models/model"
+all_model_checkpoint_paths: "/Users/taka/Work/Zoono/Projects/NexusFrontierTech/Podder/podder-task-sample/data/saved_models/model"
