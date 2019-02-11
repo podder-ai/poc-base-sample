@@ -188,7 +188,7 @@ $ docker run -ti podder-task-sample python main.py --inputs /path/to/input/a /pa
 
 ## Implementation note
 
-Finally, your task implementation will be integrated to Pipeline-framework and deploy using Docker/Kubernetes.
+Finally, your task implementation will be integrated to Podder-pipeline and deploy using Docker/Kubernetes.
 To make it easier, please follow this implementation rules below.
 
 - Only add your code to `app/task.py`
